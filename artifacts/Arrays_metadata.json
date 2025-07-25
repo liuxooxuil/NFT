@@ -1,0 +1,45 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"details": "Collection of functions related to array types.",
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"scripts/bok2/aaaa_flattened.sol": "Arrays"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"scripts/bok2/aaaa_flattened.sol": {
+			"keccak256": "0x24d3bd281ed0b5c4e8b3c94acd3e58002dc0bda52f7cf84af7aa435bbf0e2421",
+			"urls": [
+				"bzz-raw://c124ca53be32220a6bae5e02b7e1fc7a3fcf86135f20bfc05fa53be073babe59",
+				"dweb:/ipfs/QmQbcLRkaGv1ccGiXPveuBZMkbh2PjeaqT3kE16P2vEmcB"
+			]
+		}
+	},
+	"version": 1
+}
