@@ -182,6 +182,25 @@
 				"inputs": [
 					{
 						"indexed": true,
+						"internalType": "uint256",
+						"name": "collectionId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "suffix",
+						"type": "string"
+					}
+				],
+				"name": "CollectionDeleted",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
 						"internalType": "address",
 						"name": "account",
 						"type": "address"
@@ -618,6 +637,19 @@
 			{
 				"inputs": [
 					{
+						"internalType": "string",
+						"name": "suffix",
+						"type": "string"
+					}
+				],
+				"name": "deleteCollectionBySuffix",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "id",
 						"type": "uint256"
@@ -760,6 +792,53 @@
 						"internalType": "string",
 						"name": "",
 						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getContractNFTs",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "tokenId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "uri",
+								"type": "string"
+							},
+							{
+								"components": [
+									{
+										"internalType": "bytes32",
+										"name": "cid",
+										"type": "bytes32"
+									},
+									{
+										"internalType": "uint256",
+										"name": "collectionId",
+										"type": "uint256"
+									}
+								],
+								"internalType": "struct Shared1155TokenSSSS.CollectionData",
+								"name": "collectionData",
+								"type": "tuple"
+							}
+						],
+						"internalType": "struct Shared1155TokenSSSS.NFTDetails[]",
+						"name": "",
+						"type": "tuple[]"
 					}
 				],
 				"stateMutability": "view",
@@ -1034,11 +1113,6 @@
 						"type": "string"
 					},
 					{
-						"internalType": "address",
-						"name": "to",
-						"type": "address"
-					},
-					{
 						"internalType": "uint256",
 						"name": "amount",
 						"type": "uint256"
@@ -1049,9 +1123,9 @@
 						"type": "bytes32"
 					},
 					{
-						"internalType": "uint256",
-						"name": "collectionId",
-						"type": "uint256"
+						"internalType": "string",
+						"name": "suffix",
+						"type": "string"
 					}
 				],
 				"name": "safeCast",
@@ -1196,6 +1270,29 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "tokenAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "transferERC20",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -1386,7 +1483,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"scripts/bok2/aaaa.sol": "Shared1155TokenSSSS"
+			"scripts/bok3/a3.sol": "Shared1155TokenSSSS"
 		},
 		"evmVersion": "cancun",
 		"libraries": {},
@@ -1496,6 +1593,14 @@
 				"dweb:/ipfs/QmbPQMVUVZBE9R9Va6FNfZBTrUY51nrjm8qxpeoAoRrPrQ"
 			]
 		},
+		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+			"keccak256": "0xe06a3f08a987af6ad2e1c1e774405d4fe08f1694b67517438b467cecf0da0ef7",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://df6f0c459663c9858b6cba2cda1d14a7d05a985bed6d2de72bd8e78c25ee79db",
+				"dweb:/ipfs/QmeTTxZ7qVk9rjEv2R4CpCwdf8UMCcRqDNMvzNxHc3Fnn9"
+			]
+		},
 		"@openzeppelin/contracts/utils/Arrays.sol": {
 			"keccak256": "0xa4b9958797e0e9cde82a090525e90f80d5745ba1c67ee72b488bd3087498a17e",
 			"license": "MIT",
@@ -1600,12 +1705,12 @@
 				"dweb:/ipfs/QmVUSvooZKEdEdap619tcJjTLcAuH6QBdZqAzWwnAXZAWJ"
 			]
 		},
-		"scripts/bok2/aaaa.sol": {
-			"keccak256": "0x0366281f83b1f5a4847484792dcff4a7afe6dd83472df012934819d3058e62d7",
+		"scripts/bok3/a3.sol": {
+			"keccak256": "0xf47ae59ef8ac1b507c19acb1e196dc0ffaa69a2d3f8be82d2c286aa33fa231d1",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://a99b267322708a4d1b4889facc27332257686ad33eaa497c9ae439f7ce1cf6d7",
-				"dweb:/ipfs/QmZdvkd8v99nZqPrMD6v3T8YwHoZ6QaacWPiz17F3TSt4w"
+				"bzz-raw://3879f7df683c5db2414fcf1ae815284e0137b34a0cc5580e2fd7ca0ac0f9d4da",
+				"dweb:/ipfs/Qmep2VRxVzZ8WiijUwxhmUTxKvPWGSTZC1JNoAVcYGHJEy"
 			]
 		}
 	},

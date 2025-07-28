@@ -19,7 +19,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"scripts/bok2/aaaa_flattened.sol": "Arrays"
+			"scripts/bok3/a3_flattened.sol": "Arrays"
 		},
 		"evmVersion": "cancun",
 		"libraries": {},
@@ -33,11 +33,11 @@
 		"remappings": []
 	},
 	"sources": {
-		"scripts/bok2/aaaa_flattened.sol": {
-			"keccak256": "0x24d3bd281ed0b5c4e8b3c94acd3e58002dc0bda52f7cf84af7aa435bbf0e2421",
+		"scripts/bok3/a3_flattened.sol": {
+			"keccak256": "0xc559a40aa057761fffa4255cd8187c164b9a874698746c8930bba9cbafabb846",
 			"urls": [
-				"bzz-raw://c124ca53be32220a6bae5e02b7e1fc7a3fcf86135f20bfc05fa53be073babe59",
-				"dweb:/ipfs/QmQbcLRkaGv1ccGiXPveuBZMkbh2PjeaqT3kE16P2vEmcB"
+				"bzz-raw://91919af637acd1dfb29e61c771314ed222c0f3241e0969d3c6c4666383a12c46",
+				"dweb:/ipfs/QmdVKmLPNZZPY5xQsfevj4YnLmxQ43L4e4HDUE7Gk3X4YZ"
 			]
 		}
 	},
