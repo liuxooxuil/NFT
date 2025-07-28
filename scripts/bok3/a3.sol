@@ -9,8 +9,10 @@ import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol";
+import "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 
-contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnable, ERC1155URIStorage, ERC1155Supply {
+contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnable, ERC1155URIStorage, ERC1155Supply, IERC1155Receiver {
     using Counters for Counters.Counter;
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant COLLECTION_CREATOR_ROLE = keccak256("COLLECTION_CREATOR_ROLE");
@@ -20,10 +22,10 @@ contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnabl
 
     string public name;
 
-    mapping(uint256 => Collection) public collections; // 项目集映射
-    mapping(uint256 => CollectionData) public collectionDatas; // NFT 数据映射
-    uint256[] public collectionIds; // 存储所有项目集 ID
-    uint256[] public tokenIds; // 存储所有 NFT ID
+    mapping(uint256 => Collection) public collections;
+    mapping(uint256 => CollectionData) public collectionDatas;
+    uint256[] public collectionIds;
+    uint256[] public tokenIds;
 
     event CollectionURIMinted(
         address indexed account,
@@ -44,15 +46,14 @@ contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnabl
 
     struct Collection {
         uint256 id;
-        string suffix; // 保存后缀
+        string suffix;
     }
 
     struct CollectionData {
         bytes32 cid;
-        uint256 collectionId; // 关联的项目集 ID
+        uint256 collectionId;
     }
 
-    // 新增结构体用于返回 NFT 详情
     struct NFTDetails {
         uint256 tokenId;
         uint256 amount;
@@ -67,8 +68,8 @@ contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnabl
         name = "Carbon Credit Asset";
     }
 
-    function supportsInterface(bytes4 interfaceId) public view override(AccessControl, ERC1155) returns (bool) {
-        return super.supportsInterface(interfaceId);
+    function supportsInterface(bytes4 interfaceId) public view override(IERC165, AccessControl, ERC1155) returns (bool) {
+        return interfaceId == type(IERC1155Receiver).interfaceId || super.supportsInterface(interfaceId);
     }
 
     function uri(uint256 tokenId) public view override(ERC1155, ERC1155URIStorage) returns (string memory) {
@@ -93,7 +94,6 @@ contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnabl
     }
 
     function createCollection(string memory suffix) external onlyRole(COLLECTION_CREATOR_ROLE) {
-        // 查重逻辑
         for (uint256 i = 0; i < collectionIds.length; i++) {
             uint256 id = collectionIds[i];
             if (keccak256(bytes(collections[id].suffix)) == keccak256(bytes(suffix))) {
@@ -115,7 +115,6 @@ contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnabl
         bytes32 cid,
         string memory suffix
     ) external onlyRole(MINTER_ROLE) {
-        // 查找与 suffix 匹配的 collectionId
         uint256 collectionId = 0;
         for (uint256 i = 0; i < collectionIds.length; i++) {
             if (keccak256(bytes(collections[collectionIds[i]].suffix)) == keccak256(bytes(suffix))) {
@@ -128,7 +127,7 @@ contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnabl
         _tokenIdCounter.increment();
         uint256 tokenId = _tokenIdCounter.current();
 
-        _mint(address(this), tokenId, amount, ""); // 铸造到当前合约地址
+        _mint(address(this), tokenId, amount, "");
         _setURI(tokenId, tokenURI);
 
         CollectionData storage collectionData = collectionDatas[tokenId];
@@ -159,7 +158,7 @@ contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnabl
     }
 
     function getCollection(uint256 collectionId) external view returns (Collection memory) {
-        require(collections[collectionId].id != 0, "Shared1155Token: Collection does not exist");
+        require(collections[collectionId].id != 0, "Shared1155Token: Collection with suffix does not exist");
         return collections[collectionId];
     }
 
@@ -204,7 +203,6 @@ contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnabl
         revert("Shared1155Token: Collection with suffix not found");
     }
 
-    // 代币转账
     function transferERC20(
         address tokenAddress,
         address to,
@@ -216,9 +214,7 @@ contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnabl
         token.transferFrom(msg.sender, to, amount);
     }
 
-    // 查询合约持有的所有 NFT 列表和详情
     function getContractNFTs() external view returns (NFTDetails[] memory) {
-        // 统计合约持有的有效 NFT（余额大于 0）
         uint256 validCount = 0;
         for (uint256 i = 0; i < tokenIds.length; i++) {
             if (balanceOf(address(this), tokenIds[i]) > 0) {
@@ -226,11 +222,9 @@ contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnabl
             }
         }
 
-        // 创建结果数组
         NFTDetails[] memory nfts = new NFTDetails[](validCount);
         uint256 index = 0;
 
-        // 填充 NFT 详情
         for (uint256 i = 0; i < tokenIds.length; i++) {
             uint256 tokenId = tokenIds[i];
             uint256 amount = balanceOf(address(this), tokenId);
@@ -246,5 +240,50 @@ contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnabl
         }
 
         return nfts;
+    }
+
+    function onERC1155Received(
+        address operator,
+        address from,
+        uint256 id,
+        uint256 value,
+        bytes calldata data
+    ) external override returns (bytes4) {
+        return this.onERC1155Received.selector;
+    }
+
+    function onERC1155BatchReceived(
+        address operator,
+        address from,
+        uint256[] calldata ids,
+        uint256[] calldata values,
+        bytes calldata data
+    ) external override returns (bytes4) {
+        return this.onERC1155BatchReceived.selector;
+    }
+
+    // 新增方法：根据 URI 转移 NFT
+    function transferNFTByURI(
+        address to,
+        string memory targetURI,
+        uint256 amount
+    // ) external onlyRole(DEFAULT_ADMIN_ROLE) {
+    ) external {
+        // require(to != address(0), "Shared1155Token: Invalid recipient address");
+        require(amount > 0, "Shared1155Token: Transfer amount must be greater than 0");
+
+        // 查找 URI 匹配的 tokenId
+        uint256 tokenId = 0;
+        for (uint256 i = 0; i < tokenIds.length; i++) {
+            if (keccak256(bytes(uri(tokenIds[i]))) == keccak256(bytes(targetURI))) {
+                tokenId = tokenIds[i];
+                break;
+            }
+        }
+        require(tokenId != 0, "Shared1155Token: NFT with specified URI does not exist");
+        require(balanceOf(address(this), tokenId) >= amount, "Shared1155Token: Insufficient NFT balance");
+
+        // 转移 NFT
+        safeTransferFrom(address(this), to, tokenId, amount, "");
     }
 }
