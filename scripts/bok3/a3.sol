@@ -262,7 +262,7 @@ contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnabl
         return this.onERC1155BatchReceived.selector;
     }
 
-    // 新增方法：根据 URI 转移 NFT
+    // 根据 URI 转移 NFT
     function transferNFTByURI(
         address to,
         string memory targetURI,

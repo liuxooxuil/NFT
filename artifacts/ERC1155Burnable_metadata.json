@@ -582,7 +582,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"scripts/bok3/a3_flattened.sol": "ERC1155Burnable"
+			"scripts/bok3/a5_flattened.sol": "ERC1155Burnable"
 		},
 		"evmVersion": "cancun",
 		"libraries": {},
@@ -590,17 +590,17 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
+			"enabled": true,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
-		"scripts/bok3/a3_flattened.sol": {
-			"keccak256": "0xc559a40aa057761fffa4255cd8187c164b9a874698746c8930bba9cbafabb846",
+		"scripts/bok3/a5_flattened.sol": {
+			"keccak256": "0xcbeade2236045b54e275cb50f9d3ea8e65b52130c37b659222ee799f1b0a2501",
 			"urls": [
-				"bzz-raw://91919af637acd1dfb29e61c771314ed222c0f3241e0969d3c6c4666383a12c46",
-				"dweb:/ipfs/QmdVKmLPNZZPY5xQsfevj4YnLmxQ43L4e4HDUE7Gk3X4YZ"
+				"bzz-raw://3a3a880bd5886217ece18a47cd7ef2650bbaaa3ebd502ce17077b916bb09f1ca",
+				"dweb:/ipfs/QmWkk5PpxJWuE3KMMAa1aheNBAd2Td9sjFmzBMFdZyc9tN"
 			]
 		}
 	},
