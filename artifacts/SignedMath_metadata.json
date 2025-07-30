@@ -19,7 +19,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"scripts/bok3/a5_flattened.sol": "SignedMath"
+			"scripts/bok3/a7_flattened.sol": "SignedMath"
 		},
 		"evmVersion": "cancun",
 		"libraries": {},
@@ -33,11 +33,11 @@
 		"remappings": []
 	},
 	"sources": {
-		"scripts/bok3/a5_flattened.sol": {
-			"keccak256": "0xcbeade2236045b54e275cb50f9d3ea8e65b52130c37b659222ee799f1b0a2501",
+		"scripts/bok3/a7_flattened.sol": {
+			"keccak256": "0x0f733bb75c23905d31442670fe842d8881796ea198fcdb8cdf1e505f4250b7e9",
 			"urls": [
-				"bzz-raw://3a3a880bd5886217ece18a47cd7ef2650bbaaa3ebd502ce17077b916bb09f1ca",
-				"dweb:/ipfs/QmWkk5PpxJWuE3KMMAa1aheNBAd2Td9sjFmzBMFdZyc9tN"
+				"bzz-raw://18c1122831ee18d8accba50c6507147a9da88ef0712dadf7780ff2e3f9a2d0bc",
+				"dweb:/ipfs/QmTP3eEnKMUANKdvYHN6GNWX3r485cuLodSWovCtvMEKrR"
 			]
 		}
 	},

@@ -233,6 +233,44 @@
 					{
 						"indexed": true,
 						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "data",
+						"type": "string"
+					}
+				],
+				"name": "DataDeleted",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "data",
+						"type": "string"
+					}
+				],
+				"name": "DataStored",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
 						"name": "operator",
 						"type": "address"
 					},
@@ -687,6 +725,19 @@
 			{
 				"inputs": [
 					{
+						"internalType": "string",
+						"name": "data",
+						"type": "string"
+					}
+				],
+				"name": "deleteDataByValue",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "id",
 						"type": "uint256"
@@ -748,6 +799,19 @@
 						"internalType": "struct Shared1155TokenSSSS.Collection[]",
 						"name": "",
 						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getAllStoredData",
+				"outputs": [
+					{
+						"internalType": "string[]",
+						"name": "",
+						"type": "string[]"
 					}
 				],
 				"stateMutability": "view",
@@ -974,6 +1038,19 @@
 					}
 				],
 				"name": "isApprovedForAll",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "isOperatorApprovedForContractNFTs",
 				"outputs": [
 					{
 						"internalType": "bool",
@@ -1320,6 +1397,38 @@
 			{
 				"inputs": [
 					{
+						"internalType": "string",
+						"name": "data",
+						"type": "string"
+					}
+				],
+				"name": "storeData",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "storedData",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "bytes4",
 						"name": "interfaceId",
 						"type": "bytes4"
@@ -1652,7 +1761,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"scripts/bok3/a5.sol": "Shared1155TokenSSSS"
+			"scripts/bok3/a7.sol": "Shared1155TokenSSSS"
 		},
 		"evmVersion": "cancun",
 		"libraries": {},
@@ -1874,12 +1983,12 @@
 				"dweb:/ipfs/QmVUSvooZKEdEdap619tcJjTLcAuH6QBdZqAzWwnAXZAWJ"
 			]
 		},
-		"scripts/bok3/a5.sol": {
-			"keccak256": "0x441662c080e89e53c7b2108f4a29e5d7cbb0269b46cf2a6ddc63904ad59a3d64",
+		"scripts/bok3/a7.sol": {
+			"keccak256": "0x2c625c5f98f088dec4bddfc0d5047b9c1d85d752173c178d0477bc21c166cc17",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://22fe86ed6d77f7724b226ce11224d5eec2eef86a5bd841afb8143da6f22d31cc",
-				"dweb:/ipfs/QmSjfK8X6fW53V3mTVn7WxVf1GYoUqCGWa8NU3Rx5hTGzb"
+				"bzz-raw://f75b1177e16b76d06eb66066081a0abee53312a310c73e2e555cc93712ccee51",
+				"dweb:/ipfs/QmTLqfCkBY7MevfQmWY6MaTbuhdJsNa7W8fEyeKvNXxjdb"
 			]
 		}
 	},
