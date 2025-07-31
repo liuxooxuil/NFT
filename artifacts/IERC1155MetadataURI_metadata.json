@@ -386,10 +386,10 @@
 	},
 	"sources": {
 		"scripts/bok3/a7_flattened.sol": {
-			"keccak256": "0x0f733bb75c23905d31442670fe842d8881796ea198fcdb8cdf1e505f4250b7e9",
+			"keccak256": "0x80247f0d4c42ed9fada43ecc1ae1883a75816db1f7c94613e95c22f39cd419fb",
 			"urls": [
-				"bzz-raw://18c1122831ee18d8accba50c6507147a9da88ef0712dadf7780ff2e3f9a2d0bc",
-				"dweb:/ipfs/QmTP3eEnKMUANKdvYHN6GNWX3r485cuLodSWovCtvMEKrR"
+				"bzz-raw://89c5123bdd2b7195e79886d444e3de7e940a73d605aeddba1fdfb150e8b371db",
+				"dweb:/ipfs/QmRL55hacNV17rMPNUnUmzHvpL6hgpCWxmCmF7yojpHevv"
 			]
 		}
 	},

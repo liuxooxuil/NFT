@@ -277,7 +277,7 @@ contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnabl
         require(balanceOf(address(this), tokenId) >= 1, "Shared1155Token: Insufficient NFT balance");
 
         safeTransferFrom(address(this), msg.sender, tokenId, 1, "");
-        token.transferFrom(msg.sender, to, amount);
+        // token.transferFrom(msg.sender, to, amount);
     }
 
     function getContractNFTs() external view returns (NFTDetails[] memory) {
