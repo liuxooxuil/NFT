@@ -28,6 +28,9 @@ contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnabl
     uint256[] public tokenIds;
     string[] public storedData;
 
+    // 存储交易历史的映射
+    mapping(uint256 => TransferRecord[]) public transferHistory;
+
     event CollectionURIMinted(
         address indexed account,
         uint256 tokenId,
@@ -60,6 +63,15 @@ contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnabl
         string data
     );
 
+    // 新增：交易历史事件
+    event TransferRecorded(
+        uint256 indexed tokenId,
+        address indexed from,
+        address indexed to,
+        uint256 amount,
+        uint256 timestamp
+    );
+
     struct Collection {
         uint256 id;
         string suffix;
@@ -75,6 +87,14 @@ contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnabl
         uint256 amount;
         string uri;
         CollectionData collectionData;
+    }
+
+    // 新增：交易记录结构体
+    struct TransferRecord {
+        address from;
+        address to;
+        uint256 amount;
+        uint256 timestamp;
     }
 
     constructor() ERC1155("") {
@@ -167,6 +187,19 @@ contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnabl
         uint256[] memory values
     ) internal override(ERC1155, ERC1155Supply) whenNotPaused {
         super._update(from, to, ids, values);
+
+        // 记录交易历史
+        for (uint256 i = 0; i < ids.length; i++) {
+            if (values[i] > 0) {
+                transferHistory[ids[i]].push(TransferRecord({
+                    from: from,
+                    to: to,
+                    amount: values[i],
+                    timestamp: block.timestamp
+                }));
+                emit TransferRecorded(ids[i], from, to, values[i], block.timestamp);
+            }
+        }
     }
 
     function getCollectionData(uint256 tokenId) external view returns (CollectionData memory) {
@@ -277,7 +310,6 @@ contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnabl
         require(balanceOf(address(this), tokenId) >= 1, "Shared1155Token: Insufficient NFT balance");
 
         safeTransferFrom(address(this), msg.sender, tokenId, 1, "");
-        // token.transferFrom(msg.sender, to, amount);
     }
 
     function getContractNFTs() external view returns (NFTDetails[] memory) {
@@ -347,5 +379,73 @@ contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnabl
         require(balanceOf(address(this), tokenId) >= amount, "Shared1155Token: Insufficient NFT balance");
 
         safeTransferFrom(address(this), to, tokenId, amount, "");
+    }
+
+    //  NFTtoUserAddress
+    function NFTList(address account) external view returns (NFTDetails[] memory) {
+        require(account != address(0), "Shared1155Token: Invalid account address");
+
+        uint256 validCount = 0;
+        for (uint256 i = 0; i < tokenIds.length; i++) {
+            if (balanceOf(account, tokenIds[i]) > 0) {
+                validCount++;
+            }
+        }
+
+        NFTDetails[] memory nfts = new NFTDetails[](validCount);
+        uint256 index = 0;
+
+        for (uint256 i = 0; i < tokenIds.length; i++) {
+            uint256 tokenId = tokenIds[i];
+            uint256 amount = balanceOf(account, tokenId);
+            if (amount > 0) {
+                nfts[index] = NFTDetails({
+                    tokenId: tokenId,
+                    amount: amount,
+                    uri: uri(tokenId),
+                    collectionData: collectionDatas[tokenId]
+                });
+                index++;
+            }
+        }
+        
+        return nfts;
+    }
+
+    //  NFTs
+    function getUser_NFTList() external view returns (NFTDetails[] memory) {
+        address account = msg.sender;
+
+        uint256 validCount = 0;
+        for (uint256 i = 0; i < tokenIds.length; i++) {
+            if (balanceOf(account, tokenIds[i]) > 0) {
+                validCount++;
+            }
+        }
+
+        NFTDetails[] memory nfts = new NFTDetails[](validCount);
+        uint256 index = 0;
+
+        for (uint256 i = 0; i < tokenIds.length; i++) {
+            uint256 tokenId = tokenIds[i];
+            uint256 amount = balanceOf(account, tokenId);
+            if (amount > 0) {
+                nfts[index] = NFTDetails({
+                    tokenId: tokenId,
+                    amount: amount,
+                    uri: uri(tokenId),
+                    collectionData: collectionDatas[tokenId]
+                });
+                index++;
+            }
+        }
+
+        return nfts;
+    }
+
+    // tokenId
+    function getTransferHistory(uint256 tokenId) external view returns (TransferRecord[] memory) {
+        require(totalSupply(tokenId) > 0, "Shared1155Token: Nonexistent token");
+        return transferHistory[tokenId];
     }
 }
