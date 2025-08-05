@@ -28,7 +28,7 @@ contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnabl
     uint256[] public tokenIds;
     string[] public storedData;
 
-    // 存储交易历史的映射
+    // 存储交易历史
     mapping(uint256 => TransferRecord[]) public transferHistory;
 
     event CollectionURIMinted(
@@ -63,7 +63,7 @@ contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnabl
         string data
     );
 
-    // 新增：交易历史事件
+    // 交易历史事件
     event TransferRecorded(
         uint256 indexed tokenId,
         address indexed from,
@@ -89,7 +89,7 @@ contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnabl
         CollectionData collectionData;
     }
 
-    // 新增：交易记录结构体
+    // 交易记录结构体
     struct TransferRecord {
         address from;
         address to;
@@ -447,5 +447,5 @@ contract Shared1155TokenSSSS is AccessControl, Pausable, ERC1155, ERC1155Burnabl
     function getTransferHistory(uint256 tokenId) external view returns (TransferRecord[] memory) {
         require(totalSupply(tokenId) > 0, "Shared1155Token: Nonexistent token");
         return transferHistory[tokenId];
-    }
+    } 
 }
