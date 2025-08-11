@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.30+commit.73712a01"
+		"version": "0.8.24+commit.e11b9ed9"
 	},
 	"language": "Solidity",
 	"output": {
@@ -1980,7 +1980,7 @@
 		"compilationTarget": {
 			"scripts/bok3/a7.sol": "Shared1155TokenSSSS"
 		},
-		"evmVersion": "prague",
+		"evmVersion": "shanghai",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -2201,11 +2201,11 @@
 			]
 		},
 		"scripts/bok3/a7.sol": {
-			"keccak256": "0xbd4de7e8c1cfa7ab1719ca205abab2d71680b1a4a1a048942848e49fda556d9c",
+			"keccak256": "0x2ed9dc0693131bf0b018aef14d740ad2a245afd2d86a2a51f7bd00f539ed3a5f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b0182d5c506e617e406aef085697b8d2589a4a2e483ccdc8e580307b2668d71f",
-				"dweb:/ipfs/QmeZM4B4FDAo635do6ssN4Swfz4Aym2qmE2xZB7TDnWDZD"
+				"bzz-raw://43d1e3a03c252d9b2dac9e533dd549f10d0306b8aa8415e9840bec2ebcd334b6",
+				"dweb:/ipfs/QmdTJeSa4jkRZAN3TtkLqvQCWVUut4WgSot5qywhdC7X2T"
 			]
 		}
 	},
